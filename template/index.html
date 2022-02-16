@@ -5,15 +5,183 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin</title>
-    <link rel="stylesheet" href="./index.css" />
+    <link rel="stylesheet" href="/template/index.css" />
 </head>
 <body>
-    <h2>신발 정보</h2>
-    <div class="row">
-        <button>asd</button>
+    {% set sizes = [250, 255, 260, 265, 270, 275, 280] %}
+
+    <h4>회원 목록</h4>
+        <table>
+            <thead>
+                <th>회원 이름</th>
+                <th>아이디</th>
+                <th>비밀번호</th>
+            </thead>
+            {% for user in allUSers%}
+            <tbody>
+                <td>{{user.username}}</td>
+                <td>{{user.id}}</td>
+                <td>{{user.pw}}</td>
+            </tbody>
+            {% endfor %}
+        </table>
+
+    <h4>디자이너 등록</h4>
+    <form 
+        method="post" action="/designer/add" name="designerForm"
+        enctype="multipart/form-data">
+        <div>
+            <label>디자이너</label>
+            <input id="designerInput" type="text" name="designer"/>
+            <button
+                class="button" style="width: 72px;"
+                onclick="designerSubmit()">
+                등록
+            </button>
+            <button
+                class="button" style="width: 72px;"
+                onclick="updataDesigner()">
+                수정
+            </button>
+            <button
+            class="button" style="width: 72px;"
+            onclick="deleteDesigner()">
+            삭제
+        </button>
+    </form>
     </div>
-    <img src="../images/rowan-chestnut-m663zRzRe40-unsplash.jpeg"
-        height="400"
-    />
+    <br/>
+    <table>
+        <thead>
+            <th>디자이너</th>
+        </thead>
+        {% for designer in allDesigners %}
+            <tbody style="text-align: center;">
+                <td 
+                    class="selectedDesigner"
+                    id="{{designer.id}}"
+                    onclick="selectDesigner(this);">
+                    {{designer.name}}
+                </td>
+            </tbody>
+        {% endfor %}
+    </table>
+
+    <h4>신발 등록</h4>
+    <div class="grid">
+        <form 
+            name="shoesForm" class="grid"
+            method="post" action="/shoe/add"
+            enctype="multipart/form-data"
+            onsubmit="return false"
+        >
+                <div >
+                    <p>제품명</p> 
+                    <input type="text" name="name"/>
+                </div>
+                <div>
+                    <p>가격</p>
+                    <input type="number" name="price"/>원
+                </div>
+                <div>
+                    <p for="designer">디자이너</p>
+                    <select name="designer" id="designer">
+                        {% for designer in allDesigners %}
+                        <option value="{{designer.name}}">{{designer.name}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div>
+                    <p>이미지</p>
+                    <input type="file" id="image"
+                    accept="image/png, image/jpeg" name="image" 
+                    />
+                </div>
+            <!-- </div> -->
+
+            <!-- <div class="row"> -->
+                <div>
+                    <p>치수</p>
+                        {% for size in sizes %}
+                        <input type="checkbox" name="size{{size}}" value="{{size}}">{{size}}
+                        <input type="hidden" name="size{{size}}" value="0">
+                        {% endfor %}
+                </div>
+                <div class="color-input">
+                    <p>컬러</p>
+                    <input type="text" name="color1"/>
+                    <input type="text" name="color2"/>
+                    <input type="text" name="color3"/>
+                    <input type="text" name="color4"/>
+                </div>
+            <!-- </div> -->
+            <div><p>설명 </p><textarea type="text" name="description"></textarea> </div>
+            <!-- <input class="button" type="button" value="등록하기" onclick="submitShoesForm()" /> -->
+            <div class="buttons">
+                <button
+                    class="button"
+                    onclick="submitShoesForm()">
+                    등록하기
+                </button>
+                <button
+                    class="button" onclick="removeAllShoesText();">
+                        내용 모두 지우기
+                </button>
+               
+            </div>
+        </form>
+    </div>
+
+    <div>
+    </div>
+
+    <div style="margin-bottom: 24px;margin-top: 4px;">
+        <button class="button" onclick="updateShoes();">수정하기</button>
+        <button class="button" onclick="removeShoes();">삭제하기</button>
+    </div>
+    <h4>신발 목록</h4>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>제품명</th>
+                <th>가격</th>
+                <th>디자이너</th>
+                <!-- <th>이미지</th> -->
+                <th>치수</th>
+                <th>컬러</th>
+                <th>설명</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for shoes in allShoes %}
+            <tr class="selectedShoes" onclick="selectShoes(this);" id="{{shoes.id}}">
+                <td id="shoesName">{{shoes.name}}</td>
+                <td>{{shoes.price}}</td>
+                <td>{{shoes.designer}}</td>
+                <!-- <td>{{shoes.name}}.jpg</td> -->
+                <td>
+                    {% for size in shoes.sizes %}
+                        {{size}}    
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for color in shoes.colors %}
+                        {{color}}
+                    {% endfor %}
+                </td>
+                <td>
+                    {{shoes.description}}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <form method="post">
+    </form>
+    <table></table>
+    <script src="/template/index.js"/>
+    // <script>
+        // console.log('안됨')    
+    // </script>
 </body>
 </html>

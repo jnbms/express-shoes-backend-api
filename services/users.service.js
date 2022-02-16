@@ -1,2 +1,7 @@
+const { users } = require("../prisma/table")
 
-exports.getUsers = 'get all users!!z';
+module.exports = {
+    getAllusers: async() => {
+        await users.findMany({orderBy:{id:'asc'}})
+    }
+}
