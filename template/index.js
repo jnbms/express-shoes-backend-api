@@ -8,10 +8,12 @@ function addColor(){
 function designerSubmit() {
     const form = window.designerForm
     const input = document.getElementById('designerInput');
+    const file = document.getElementById('designerImage');
     if(input.value.length == 0) {
         alert('디자이너 이름을 적지 않았습니다.')
+    } else if(file.value == "") {
+        alert('파일을 등록하지 않았습니다.')
     } else {
-        // console.log(input.name + " 입니다.")
         form.submit();
     }
 }
@@ -82,6 +84,7 @@ function submitShoesForm() {
 //     )
 
 let selectDesignerId = 0;
+let sleectDesignerName = "";
 
 function selectDesigner(e) {
     var text = e.innerText;
@@ -94,13 +97,19 @@ function selectDesigner(e) {
     }
     e.style.backgroundColor = 'gray'
 
+    sleectDesignerName= e.innerText;
     selectDesignerId = e.id;
 }
 
 function updataDesigner() {
     var form = window.designerForm;
+    var file = document.getElementById('designerImage');
     if(selectDesignerId == 0) alert('디자이너가 선택되지 않았습니다.');
-    else form.action = `/designer/update/${selectDesignerId}`;
+    // else if(file.value =="") alert('파일이 선택되지 않았습니다.')
+    else {
+        form.action = `/designer/update/${selectDesignerId}?oldname=${sleectDesignerName}`;
+        form.submit();
+    }
     // form.action = `/designer/update/1`;
     // form.submit();
 }
@@ -108,7 +117,10 @@ function updataDesigner() {
 function deleteDesigner() {
     var form = window.designerForm;
     if(selectDesignerId == 0) alert('디자이너가 선택되지 않았습니다.');
-    else form.action = `/designer/delete/${selectDesignerId}`;
+    else {
+        form.action = `/designer/delete/${selectDesignerId}?oldname=${sleectDesignerName}`;
+        form.submit();
+    }
 }
 
 let selectShoesId = 0;

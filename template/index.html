@@ -17,7 +17,7 @@
                 <th>아이디</th>
                 <th>비밀번호</th>
             </thead>
-            {% for user in allUSers%}
+            {% for user in allUsers%}
             <tbody>
                 <td>{{user.username}}</td>
                 <td>{{user.id}}</td>
@@ -33,18 +33,21 @@
         <div>
             <label>디자이너</label>
             <input id="designerInput" type="text" name="designer"/>
+            <input type="file" name="image" id="designerImage"/>
             <button
-                class="button" style="width: 72px;"
+                class="button" type="button" style="width: 72px;"
                 onclick="designerSubmit()">
                 등록
             </button>
             <button
                 class="button" style="width: 72px;"
+                type="button"
                 onclick="updataDesigner()">
                 수정
             </button>
             <button
             class="button" style="width: 72px;"
+            type="button"
             onclick="deleteDesigner()">
             삭제
         </button>

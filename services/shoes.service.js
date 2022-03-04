@@ -1,11 +1,17 @@
-const { shoes } = require('../prisma/table');
-
-
+const {shoes} = require('../prisma/table')
 
 module.exports = {
     getAllShoes: async () => {
         const allShoes = await shoes.findMany();
         return allShoes;
+    },
+    getOneShoes: async (id) => {
+        const slectedShoes = await shoes.findFirst({
+            where: {
+                id: Number(id)
+            }
+        })
+        return slectedShoes
     },
     addShoes: async (
         name,price,designer,description
@@ -28,6 +34,13 @@ module.exports = {
             },
             data : {
 
+            }
+        })
+    },
+    getDesignerShoes: async (name) => {
+        return await shoes.findMany({
+            where: {
+                designer: name
             }
         })
     }

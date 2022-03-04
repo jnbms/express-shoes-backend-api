@@ -6,9 +6,11 @@ var fs =require('fs')
 const users = require('./users.route');
 const shoes = require('./shoes.route');
 const designer = require('./designer.route');
+const certification = require('./certification.route');
 router.use('/users', users);
 router.use('/shoes',shoes);
 router.use('/designer',designer);
+router.use('/certification',certification);
 
 const shoesService = require('../services/shoes.service');
 const designerService = require('../services/designer.service');
@@ -18,16 +20,17 @@ const userService = require('../services/users.service')
 router.get('/', async (req,res) => {
     const allShoes =  await shoesService.getAllShoes()
     const allDesigners = await designerService.getAllDesigners()
-    const allUSers = await userService.getAllusers();
+    const allUsers = await userService.getAllusers();
     res.render(
             "../template/index.html",
             {
                 allShoes,
                 allDesigners,
-                allUSers
+                allUsers
             }
     )
 })
+
 // const imagefile = require('../public/images/shoes/shoe1.jpeg');
 router.get('/image',function(req,res) {
     // res.sendFile('g');

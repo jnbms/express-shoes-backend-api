@@ -1,24 +1,73 @@
 var express = require('express');
 var router = express.Router();
 var service = require('../services/designer.service');
+var fs = require('fs');
+var path = require('path')
 
 router.get('/',async (req, res) => {
-     await service.getAllDesigners().then(data => {
+    await service.getAllDesigners().then(data => {
         res.send(data)
     })
 })
+router.get('/image/:name', async(req, res) => {
+    var sizeOf = require('image-size')
+    res.set("Content-Type", "image/jpeg");
+    console.log(sizeOf('./public/images/designers/' + req.params.name + '.jpg'))
+    res.sendFile(path.resolve('./public/images/designers/' + req.params.name + '.jpg'))
+})
 
 router.post('/add',async (req, res) => {
+    const name = req.body.designer
+    const image = req.files.image
     await service.addDesigner(req.body.designer);
+    await image.mv(
+        './public/images/designers/' + name + '.jpg',
+        (err) => {
+            if(err) console.error(err);
+            else console.log('uploaded')
+        }
+    )
     res.redirect('/')
 })
 
 router.post('/update/:id',async (req,res) => {
-    await service.updateDesigner(Number(req.params.id), req.body.designer);
-    res.redirect('/');
+   
+    var name = req.body.designer
+    await service.updateDesigner(Number(req.params.id), name);
+    if(req.files.image != null) {
+        //remove
+        try { 
+            fs.unlinkSync('./public/images/designers/' + req.query.oldname + '.jpg')
+        } catch(err) {
+            console.error('삭제 실패')
+        }
+        //add new image
+        let image = req.files.image
+        await image.mv(
+            './public/images/designers/' + name + '.jpg',
+            (err) => {
+                if(err) console.error(err);
+                else console.log('uploaded')
+            })
+    } else {
+        // rename image
+        fs.rename(
+            './public/images/designers/' + req.query.oldname + '.jpg',
+            './public/images/designers/' + name + '.jpg',
+            (err) => console.log(err)
+            )
+        console.log('rename')
+    }
+    res.redirect('/')
 })
 
 router.post('/delete/:id', async(req,res) => {
+    try { 
+        fs.unlinkSync('./public/images/designers/' + req.query.oldname + '.jpg')
+    } catch(err) {
+        console.error(err)
+    }
+
     await service.deleteDesigner(Number(req.params.id));
     res.redirect('/');
 })
