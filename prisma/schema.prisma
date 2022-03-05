@@ -4,7 +4,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = "postgres://upujvkljkknhdr:8fd286e41a411494f79fe87eb5439f1c8ad372b0bdd821d3b97641c0822e4dcd@ec2-18-215-8-186.compute-1.amazonaws.com:5432/dfjuvukq7phid3"
+  url      = "postgres://rvoqelsacsgoji:5f2673aacfbe64f7f6fec73af975dcdbe57634f5c971bc18a9b1802dfd63e4a8@ec2-54-83-21-198.compute-1.amazonaws.com:5432/d5jnne7f6ks2bh"
 }
 
 model shoes {
