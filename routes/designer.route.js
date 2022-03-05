@@ -10,10 +10,16 @@ router.get('/',async (req, res) => {
     })
 })
 router.get('/image/:name', async(req, res) => {
-    var sizeOf = require('image-size')
+    // var sizeOf = require('image-size')
     res.set("Content-Type", "image/jpeg");
-    console.log(sizeOf('./public/images/designers/' + req.params.name + '.jpg'))
-    res.sendFile(path.resolve('./public/images/designers/' + req.params.name + '.jpg'))
+    // console.log(sizeOf('./public/images/designers/' + req.params.name + '.jpg'))
+    res.sendFile(path.resolve('./public/images/designers/' + req.params.name + '.jpg'), (err) => {
+        if(err) {
+            console.log(err)
+            // 파일이 없을 경우, 에러 콜백이 없으면 시스템이 멈춰버린다
+            res.send()
+        }
+    })
 })
 
 router.post('/add',async (req, res) => {
