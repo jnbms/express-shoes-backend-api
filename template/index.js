@@ -87,9 +87,13 @@ let selectDesignerId = 0;
 let sleectDesignerName = "";
 
 function selectDesigner(e) {
-    var text = e.innerText;
-    var input = document.getElementById('designerInput');
-    input.value = text;
+    var texts = e.children[0].children
+    var inputs = [
+        document.getElementById('designerInput'),
+        document.getElementById('slogan'),
+        document.getElementById('coment'),
+    ]
+    inputs.map((input, index) => input.value = texts[index].innerText)
     
     var elses = document.getElementsByClassName('selectedDesigner');
     for( tag of elses) {
@@ -97,7 +101,7 @@ function selectDesigner(e) {
     }
     e.style.backgroundColor = 'gray'
 
-    sleectDesignerName= e.innerText;
+    sleectDesignerName= e.children[0].children[0].innerText;
     selectDesignerId = e.id;
 }
 

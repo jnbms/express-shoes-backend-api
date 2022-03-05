@@ -6,20 +6,24 @@ module.exports = {
             orderBy: [{id: 'asc'}]
         });
     },
-    addDesigner : async(name) => {
+    addDesigner : async(info) => {
+        let {name, slogan, coment} = info
         await designer.create({
             data: {
-                name: name
+                name,
+                slogan,
+                coment
             }
         })
     },
-    updateDesigner : async(id, name) => {
+    updateDesigner : async(id, info) => {
+        let {name, slogan, coment} = info
         await designer.update({
             where: {
                 id: id
             },
             data: {
-                name: name
+                name, slogan, coment
             }
         })
     },

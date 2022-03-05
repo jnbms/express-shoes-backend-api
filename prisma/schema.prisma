@@ -27,4 +27,6 @@ model Users {
 model Designer {
   id   Int    @id @default(autoincrement())
   name String
+  slogan String
+  coment String
 }

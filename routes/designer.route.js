@@ -17,9 +17,9 @@ router.get('/image/:name', async(req, res) => {
 })
 
 router.post('/add',async (req, res) => {
-    const name = req.body.designer
+    const name = req.body.name
     const image = req.files.image
-    await service.addDesigner(req.body.designer);
+    await service.addDesigner(req.body);
     await image.mv(
         './public/images/designers/' + name + '.jpg',
         (err) => {
@@ -32,8 +32,8 @@ router.post('/add',async (req, res) => {
 
 router.post('/update/:id',async (req,res) => {
    
-    var name = req.body.designer
-    await service.updateDesigner(Number(req.params.id), name);
+    var name = req.body.name
+    await service.updateDesigner(Number(req.params.id), req.body);
     if(req.files.image != null) {
         //remove
         try { 

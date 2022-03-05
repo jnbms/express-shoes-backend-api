@@ -30,42 +30,56 @@
     <form 
         method="post" action="/designer/add" name="designerForm"
         enctype="multipart/form-data">
-        <div>
-            <label>디자이너</label>
-            <input id="designerInput" type="text" name="designer"/>
-            <input type="file" name="image" id="designerImage"/>
-            <button
-                class="button" type="button" style="width: 72px;"
-                onclick="designerSubmit()">
-                등록
-            </button>
-            <button
+        <div class="column">
+            <div>
+                <label>디자이너</label>
+                <input id="designerInput" type="text" name="name"/>
+                <input type="file" name="image" id="designerImage"/>
+            </div>
+            <div>
+                <label>슬로건</label>
+                <input id="slogan" type="text" name="slogan"/>
+                <label>코멘트</label>
+                <input id="coment" type="text" name="coment"/>
+            </div>
+            <div>
+                <button
+                    class="button" type="button" style="width: 72px;"
+                    onclick="designerSubmit()">
+                    등록
+                </button>
+                <button
+                    class="button" style="width: 72px;"
+                    type="button"
+                    onclick="updataDesigner()">
+                    수정
+                </button>
+                <button
                 class="button" style="width: 72px;"
                 type="button"
-                onclick="updataDesigner()">
-                수정
+                onclick="deleteDesigner()">
+                삭제
             </button>
-            <button
-            class="button" style="width: 72px;"
-            type="button"
-            onclick="deleteDesigner()">
-            삭제
-        </button>
+            </div>
+        </div>
     </form>
     </div>
     <br/>
     <table>
         <thead>
             <th>디자이너</th>
+            <th>슬로건</th>
+            <th>코멘트</th>
         </thead>
         {% for designer in allDesigners %}
-            <tbody style="text-align: center;">
-                <td 
-                    class="selectedDesigner"
-                    id="{{designer.id}}"
-                    onclick="selectDesigner(this);">
-                    {{designer.name}}
-                </td>
+            <tbody
+                style="text-align: center;"
+                class="selectedDesigner"
+                id="{{designer.id}}"
+                onclick="selectDesigner(this);">
+                <td>{{designer.name}}</td>
+                <td>{{designer.slogan}}</td>
+                <td>{{designer.coment}}</td>
             </tbody>
         {% endfor %}
     </table>

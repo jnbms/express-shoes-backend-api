@@ -93,3 +93,15 @@ select {
 .selectedShoes:hover {
     background-color: #f7f7f7;
 }
+
+.column {
+    display: flex;
+    flex-direction: column;
+}
+
+.button-container {
+    align-items: center;
+    justify-content: center;
+    gap: .4em;
+    background-color: red;
+}
