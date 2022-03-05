@@ -9,7 +9,7 @@ router.get('/',async (req, res) => {
         res.send(data)
     })
 })
-router.get('/image/:name', async(req, res) => {
+router.get('/image/:name', (req, res) => {
     // var sizeOf = require('image-size')
     res.set("Content-Type", "image/jpeg");
     // console.log(sizeOf('./public/images/designers/' + req.params.name + '.jpg'))

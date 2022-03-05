@@ -10,12 +10,16 @@ module.exports = {
         
     },
     getOneShoes: (req, res) => {
-        shoeService
+        if(req.params?.id != undefined) {
+            shoeService
             .getOneShoes(req.params.id)
             .then(
                 data =>
                 res.send(data)
-            )
+                )
+            } else {
+                res.send("id is null")
+            }
     },
     postShoes: (req, res) => {
         shoeService.addShoes()
