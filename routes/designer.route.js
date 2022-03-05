@@ -34,7 +34,7 @@ router.post('/update/:id',async (req,res) => {
    
     var name = req.body.name
     await service.updateDesigner(Number(req.params.id), req.body);
-    if(req.files.image != null) {
+    if(req.files?.image != undefined) {
         //remove
         try { 
             fs.unlinkSync('./public/images/designers/' + req.query.oldname + '.jpg')
