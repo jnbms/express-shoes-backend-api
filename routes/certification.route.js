@@ -28,8 +28,8 @@ async function sendCertificationNumber(email, certificationNumber) {
         }
     })
 }
-router.post('/',(req, res) => {
-    sendCertificationNumber(req.query.email,Number(req.query.number))
+router.post('/', async (req, res) => {
+    return await sendCertificationNumber(req.query.email,Number(req.query.number))
         .then(result => res.send(result));
 })
 

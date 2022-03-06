@@ -5,7 +5,7 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = "postgres://dhcaspyajlljqz:ce2557da55ec1e3f60fda6ccd026ee488381c3ec284c6a7fff640164e3a1a8ed@ec2-18-209-153-180.compute-1.amazonaws.com:5432/d8o571ug92kpls"
-  // url      = "postgres://user1:root@localhost:5432/database1"
+  // url      = "postgres://root:root@localhost:5432/database1"
 }
 
 model shoes {
