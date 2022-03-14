@@ -4,7 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var fileupload = require('express-fileupload');
-
+var cors = require('cors');
 var routes = require('./routes/index');
 // var mysql = require('mysql2');
 var app = express();
@@ -12,6 +12,7 @@ app.use(fileupload({
   // useTempFiles: true,
   // tempFileDir: ''
 }));
+app.use(cors())
 var nunjucks = require('nunjucks');
 
 // var bodyParser = require('body-parser');

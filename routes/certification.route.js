@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const nodemailer = require('nodemailer');
-const cors = require('cors')
 
 let senderEmail = process.env.MAIL_EMAIL;
 let password = process.env.MAIL_PASSWORD;
@@ -30,7 +29,7 @@ async function sendCertificationNumber(email, certificationNumber) {
     })
 }
 // this have cors error, need to cors library to enable for a single route
-router.post('/', cors() , async (req, res) => {
+router.post('/', async (req, res) => {
     return await sendCertificationNumber(req.query.email,Number(req.query.number))
         .then(result => res.send(result));
 })
