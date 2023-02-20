@@ -37,7 +37,7 @@ router.post('/add',async (req, res) => {
 })
 
 router.post('/update/:id',async (req,res) => {
-   
+
     var name = req.body.name
     await service.updateDesigner(Number(req.params.id), req.body);
     if(req.files?.image != undefined) {
